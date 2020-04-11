@@ -1,11 +1,11 @@
 {
   "name": "tasks-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API for Task-Manager",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jose Miguel Valiente",
   "license": "ISC"
 }
