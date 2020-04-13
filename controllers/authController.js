@@ -38,6 +38,6 @@ exports.authUser = async (req,res,next) => {
         //jwt
 
     } catch (error) {
-        
+        res.status(400).send(error)
     }
 }
