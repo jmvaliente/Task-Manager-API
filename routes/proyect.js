@@ -9,4 +9,15 @@ router.post('/',auth,[
     ],
     proyectController.addProyect)
 
+router.get('/',
+            auth,
+            proyectController.listProyect
+        )
+router.put('/:id',
+            auth,
+            [
+                check('name','Name is empty').not().isEmpty()
+            ],
+            proyectController.updateProyect)
+
 module.exports = router
