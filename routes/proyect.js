@@ -18,6 +18,11 @@ router.put('/:id',
             [
                 check('name','Name is empty').not().isEmpty()
             ],
-            proyectController.updateProyect)
+            proyectController.updateProyect
+            )
+router.delete('/:id',
+                auth,
+                proyectController.deleteProyect
+                )
 
 module.exports = router

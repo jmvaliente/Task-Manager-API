@@ -54,9 +54,35 @@ exports.updateProyect = async (req, res, next) => {
         // update
         const updateProyect = await Proyect.findByIdAndUpdate({ _id: req.params.id }, {$set: newProyect.name}, {new: true})
         
-        return res.status(200).json({updateProyect})
+        return res.status(200).send({updateProyect})
         
     } catch (error) {
-        res.status(500).send(({msg: error}))
+        res.status(500).send({msg: error})
+    }
+}
+
+exports.deleteProyect = async (req, res, next) => {
+
+    try {
+
+        // ID Success?
+        const proyect = await Proyect.findById(req.params.id) 
+
+        // Proyect Success?
+
+        if(!proyect) return res.status(404).send({msg: 'Proyect not Exist'})
+        
+        // update only user token
+        
+        if(proyect.userCreate.toString() !== req.user.id) return res.status(401).send({msg: 'User not have authorized'})
+
+        // delete
+
+        const deleteProyect = await Proyect.findByIdAndDelete({_id: req.params.id})
+
+        return res.status(200).send(deleteProyect)
+        
+    } catch (error) {
+        res.status(500).send({msg: error})
     }
 }
