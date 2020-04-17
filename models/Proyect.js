@@ -8,8 +8,7 @@ const ProyectSchema = mongoose.Schema({
     },
     userCreate:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        require: true
+        ref: 'User'
     }},
 
     {
