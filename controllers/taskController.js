@@ -27,5 +27,23 @@ exports.addTask = async (req, res, next) => {
 }
 
 exports.listTask = async (req, res, next) => {
+    
+    const {proyect} = req.body
 
+    try {
+
+        const proyectData = await Proyect.findById(proyect)
+
+        if(!proyectData) return res.status(404).send({msg: 'Proyect not exist'})
+
+        if (proyectData.userCreate.toString() !== req.user.id) return res.status(401).send({msg: 'User not authorized'})
+        
+        const listTask = await Task.find({proyect})
+    
+        res.status(200).send({listTask})
+
+    } catch (error) {
+        res.status(500).send({msg: 'Error Server'})
+    }
+    
 }
