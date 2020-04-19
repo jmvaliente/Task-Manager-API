@@ -47,3 +47,43 @@ exports.listTask = async (req, res, next) => {
     }
     
 }
+
+exports.updateTask = async (req, res, next) => {
+    
+    try {
+        const error = validationResult(req)
+        if(!error.isEmpty()) return res.status(400).send({error})
+
+        const {name, complete} = req.body
+        const newTask = {}
+
+        if (name) newTask.name = name
+        if (complete) newTask.complete = complete
+
+
+        const task = await Task.findById(req.params.id)
+        const proyect = await Proyect.findById(task.proyect)
+
+        if (!task) return res.status(404).send({msg: 'Task not exist'})
+
+        if(proyect.userCreate.toString() !== req.user.id) return res.status(401).send({msg: 'User not have authorized'})
+
+        console.log(proyect)
+        const updateTask = await Task.findOneAndUpdate({_id: req.params.id}, newTask, {new: true})
+        return res.status(200).send({updateTask})
+
+    } catch (error) {
+        res.status(500).send({msg: 'Error Server'})
+    }
+
+
+}
+
+exports.deleteTask = async (req, res, next) =>{
+
+    try {
+        
+    } catch (error) {
+        
+    }
+}
